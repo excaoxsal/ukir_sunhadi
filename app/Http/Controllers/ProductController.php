@@ -49,11 +49,39 @@ class ProductController extends Controller
             'name' => 'required',
             'detail' => 'required',
         ]);
-    
-        Product::create($request->all());
-    
-        return redirect()->route('products.index')
+        $nameproduct=$request->name;
+        if (!Product::where('name', $request->input('name'))->first()){
+            $this->validate($request, [
+                    'file'
+                ]);
+            $file = $request->file('file');
+        // dd($request);
+            $file_name = $file->getClientOriginalName();
+            $data = $file_name;
+            // dd($value);
+            // isi dengan nama folder tempat kemana file diupload
+            $massa=$request->weight;
+            $upload_path = 'product_files';
+            $file->move($upload_path,$file->getClientOriginalName());
+            $path= $upload_path.DIRECTORY_SEPARATOR.$file->getClientOriginalName();
+            Product::create([
+                'name'=>$request->name,
+                'detail'=>$request->detail,
+                'picture'=>$data,
+                'price'=>$request->price,
+                'weight'=>$massa,
+                'stock'=>$request->stock
+                ]
+            );
+            return redirect()->route('products.index')
                         ->with('success','Product created successfully.');
+        }
+        else{
+            return \Redirect::back()->withErrors(['Product sudah ada, mohon diganti.']);
+        }
+
+    
+        
     }
 
     /**
