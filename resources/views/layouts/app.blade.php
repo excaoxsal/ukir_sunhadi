@@ -175,6 +175,7 @@
               </a>
           </li>
           
+          <!-- The Current User Can Create Posts -->
           <li class="nav-item">
             <a href="{{ route('users.index') }}" class="nav-link">   
               <i class="nav-icon fas fa-edit"></i>
@@ -185,6 +186,7 @@
             </a>
             
           </li>
+          
           <li class="nav-item">
             <a href="{{ route('roles.index') }}" class="nav-link">   
               <i class="nav-icon fas fa-edit"></i>
@@ -196,7 +198,7 @@
             
           </li>
           <li class="nav-item">
-              <a href="{{ route('products.index') }}" class="nav-link">
+              <a href="{{ route('orders.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-table"></i>
                   <p>
                       Manage Orders
@@ -336,12 +338,12 @@
     });
   });
 </script>
-<footer class="main-footer">
+<!-- <footer class="main-footer">
     <strong>Copyright &copy; 2014-2021 <a href="#">Kayu Ukir Sunhadi</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0
     </div>
-  </footer>
+  </footer> -->
 </body>
 </html>

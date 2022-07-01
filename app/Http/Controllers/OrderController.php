@@ -19,7 +19,13 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $iduser = \Auth::user()->id;
+        $orders = Order::latest()
+        ->join('products','products.id','=','orders.products_id')
+        ->select('products.name','orders.status','products.weight','products.created_at','products.price','products.id')
+        ->where('consument_id','=',$iduser)->paginate(10);
+        return view('orders.show',compact('orders'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,13 +35,34 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-        // dd($request);
-        $product=DB::table('products')->get();
+        
+        
+        return view('orders.show', compact('orders'));
+    }
+
+
+    public function cart(Request $request)
+    {
+        // dd($request->order);
+        $iduser = \Auth::user()->id;
+        // $product=DB::table('products')->where('id','=',$request->order)->get();
+        // $idproduct = $product->id;
+        $idprod=$request->order;
+        // dd($idprod);
+        Order::create([
+                'consument_id'=>$iduser,
+                'products_id'=>$idprod,
+                'status'=>'Checking Order',
+                ]
+            );
         // dd($product);
+        $orders = Order::latest()
+        ->join('products','products.id','=','orders.products_id')
+        ->select('products.name','orders.status','products.weight','products.created_at','products.price','products.id')
+        ->where('consument_id','=',$iduser)->paginate(10);
         $timezone = 'Asia/Jakarta'; $date = new DateTime('now', new DateTimeZone($timezone)); $localtime = $date->format('Y m d h:i:s a');
         // dd($date->format('Y/m/d h:i:s a'));
-        
-        return view('orders.show', ['product'=>$product]);
+        return view('orders.show', compact('orders'));
     }
 
     /**

@@ -32,7 +32,7 @@
                   RP. {{$product->price}}
                 </h2>
               </div>
-              <form name="orderForm"  enctype="multipart/form-data" action="{{ route('orders.create') }}">
+              <form name="orderForm"  enctype="multipart/form-data" action="{{ url('/cart') }}">
                 <!-- harus buat view di bagian cart biar enak nantinya -->
               <input type='number' name='order' value="{{$product->id}}" class="invisible" />
               <a href="javascript: submitform()">
