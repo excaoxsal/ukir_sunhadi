@@ -40,7 +40,7 @@
                     <td>{{$p->weight}}</td>
                     <td>{{$p->created_at}}</td>
                     <td>{{$p->status}}</td>
-                    <td><form name="orderForm"  enctype="multipart/form-data" action="{{ url('/cart') }}">
+                    <td><form name="orderForm"  enctype="multipart/form-data" action="{{ url('/paynow') }}">
                     <a href="">Pay Now</a><input type='number' name='order' value="{{$p->id}}" class="invisible" /></form></td>
                   </tr>
                   @endforeach

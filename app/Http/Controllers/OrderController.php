@@ -64,6 +64,17 @@ class OrderController extends Controller
         // dd($date->format('Y/m/d h:i:s a'));
         return view('orders.show', compact('orders'));
     }
+    public function paynow(Request $request, Order $order)
+    {
+        $idorder=$request->id;
+        $product->update('status')->set('Unpaid')->where('id','=',$idorder);
+        $orders = Order::latest()
+        ->join('products','products.id','=','orders.products_id')
+        ->select('products.name','orders.status','products.weight','products.created_at','products.price','products.id')
+        ->where('consument_id','=',$iduser,'and','status','Checking Order')->paginate(10);
+        dd($order);
+        
+    }
 
     /**
      * Store a newly created resource in storage.
